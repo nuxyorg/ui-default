@@ -57,7 +57,6 @@ export function smoothScrollIntoViewIfNeeded(el: HTMLElement) {
   let futureElTop = elRect.top + (parent.scrollTop - targetScrollTop)
   const futureElBottom = futureElTop + elRect.height
 
-  // If this is the first item in its list container, check if a section header precedes the container
   if (el.parentElement && !el.previousElementSibling) {
     const listSibling = el.parentElement.previousElementSibling as HTMLElement
     if (listSibling && listSibling.classList.contains('nuxy-section-header')) {
@@ -80,4 +79,18 @@ export function smoothScrollIntoViewIfNeeded(el: HTMLElement) {
   if (targetScrollTop !== parent.scrollTop || scrollAnimationId !== null) {
     smoothScrollTo(parent, targetScrollTop)
   }
+}
+
+/** Scroll a list's active item into view after layout settles. */
+export function scrollListActiveItem(listEl: HTMLElement, activeIndex: number): void {
+  requestAnimationFrame(() => {
+    let target: HTMLElement | null = null
+    if (activeIndex >= 0) {
+      const items = listEl.querySelectorAll('nuxy-list-item')
+      target = (items[activeIndex] as HTMLElement | undefined) ?? null
+    } else {
+      target = listEl.querySelector('nuxy-list-item[active]')
+    }
+    if (target) smoothScrollIntoViewIfNeeded(target)
+  })
 }
