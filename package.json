@@ -26,8 +26,8 @@
   "bugs": "https://github.com/nuxyorg/ui-default/issues",
   "license": "MIT",
   "dependencies": {
-    "@nuxyorg/core": "workspace:*",
-    "@nuxyorg/extension-sdk": "workspace:*",
+    "@nuxyorg/core": "^1.0.1",
+    "@nuxyorg/extension-sdk": "^1.0.1",
     "lit": "^3.0.0"
   },
   "devDependencies": {
